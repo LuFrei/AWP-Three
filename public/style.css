@@ -1,0 +1,4 @@
+.view-port {    /*i need to figure out how to make size dynamic*/
+  width: 1000px;
+  height: 900px;
+}
