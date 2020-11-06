@@ -129,6 +129,16 @@ var Viewport = /*#__PURE__*/function (_Component) {
       this.sceneSetup();
       this.addObjectsToScene();
       this.startAnimationLoop();
+      window.addEventListener('resize', this.handleWindowResize.bind(this)); //<-- this will have no effect now as we hard coded the size of our canvas, but when we start messing with scalable nd resizable canvases, this will be needed
+    }
+  }, {
+    key: "handleWindowResize",
+    value: function handleWindowResize() {
+      var width = this.el.clientWidth;
+      var height = this.el.clientHeight;
+      this.renderer.setSize(width, height);
+      this.camera.aspect = width / height;
+      this.camera.updateProjectionMatrix();
     }
   }, {
     key: "sceneSetup",
