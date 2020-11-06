@@ -12,6 +12,16 @@ class Viewport extends Component {
     window.addEventListener('resize', this.handleWindowResize.bind(this)); //<-- this will have no effect now as we hard coded the size of our canvas, but when we start messing with scalable nd resizable canvases, this will be needed
   }
 
+  //We need to clean up anything we attached to window 
+  componentWillUnmount(){
+    //remove eventlisteners we put on `window`
+    window.removeEventListener('resize', this.handleWindowResize);
+    //cacel animation requests from this.requestID
+    window.cancelAnimationFrame(this.requestID);
+    //OrbitControls auto attach listeners to window, and must be .disposed
+    this.controls.dispose();
+  }
+
   handleWindowResize(){
     const width = this.el.clientWidth;
     const height = this.el.clientHeight;
