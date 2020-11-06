@@ -9,7 +9,7 @@ class App extends Component {
   render(){
     return(
       <Provider store={store}>
-        <div className="control-panel" />
+        <div className="control-panel"><p>scroll-wheel to Zoom, left-click to Rotate, right-click to Pan</p></div>
         <Viewport />
       </Provider>
     )

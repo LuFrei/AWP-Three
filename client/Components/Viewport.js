@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as THREE from 'three'
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls"
 
 class Viewport extends Component {
 
@@ -10,17 +11,26 @@ class Viewport extends Component {
   }
 
   sceneSetup (){
+    //get width & Height
     const width = this.el.clientWidth;
     const height = this.el.clientHeight;
 
+    //create Scene
     this.scene = new THREE.Scene();
+
+    //create & Setup camera
     this.camera = new THREE.PerspectiveCamera( 75, width/height, 0.1, 1000);
-    this.renderer = new THREE.WebGLRenderer();
-
     this.camera.position.z = 6;
+    this.camControls = new OrbitControls(this.camera, this.el); //<-- this.el is optional, and used for event listening
+    //By default scroll wheel zooms, but if there are multiple scenes/you need to scroll through the whole webpage, it might be wise to turn it off. I'll be leaving it on
+    //this.camControls.enableZoom = false; 
+    //more on OrbitControls: https://threejs.org/docs/#examples/en/controls/OrbitControls
 
+    //create & Setup renderer
+    this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(width, height);
 
+    //attach it to DOM
     this.el.appendChild( this.renderer.domElement );
   }
 
